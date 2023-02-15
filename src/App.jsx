@@ -15,16 +15,13 @@ function App() {
   const [editMode, setEditMode] = useState(false);
 
   const [showCart, setShowCart] = useState(false);
-
+ 
     const handleDeleteProducts = (id) => {
       setProducts(products.filter((prod) => prod.id !== id));
     };
 
   const handleAddProducts = (prod) => {
-    setProducts([
-      // ...products,
-      { ...prod, id: products.length * 999 + 1 },
-    ]);
+    setProducts([...products, { ...prod, id: products.length * 999 + 1 }]);
   };
 
   const handleEditProducts = (id, prod) => {

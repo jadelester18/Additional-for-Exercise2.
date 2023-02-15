@@ -29,7 +29,7 @@ const ProductForm = ({ onSubmit, initialValue }) => {
 
   const schema = Joi.object({
     title: Joi.string().min(2).max(500).required(),
-    price: Joi.string().min(3).max(500).required(),
+    price: Joi.number().min(0.01).required(),
     // email: Joi.string()
     //   .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     //   .required(),
@@ -42,24 +42,27 @@ const ProductForm = ({ onSubmit, initialValue }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     onSubmit(form);
-    navigate("/");
+    navigate("/products");
   };
 
-  const handleChange = ({ currentTarget: input }) => {
+  const handleChange = (event) => {
     setForm({
       ...form,
-      [input.name]: input.value,
+      [event.currentTarget.name]: event.currentTarget.value,
     });
 
     const { error } = schema
-      .extract(input.name)
-      .label(input.name)
-      .validate(input.name);
+      .extract(event.currentTarget.name)
+      .label(event.currentTarget.name)
+      .validate(event.currentTarget.value);
 
     if (error) {
-      setErrors({ ...errors, [input.name]: error.details[0].message });
+      setErrors({
+        ...errors,
+        [event.currentTarget.name]: error.details[0].message,
+      });
     } else {
-      delete errors[input.name];
+      delete errors[event.currentTarget.name];
       setErrors(errors);
     }
   };
@@ -67,7 +70,7 @@ const ProductForm = ({ onSubmit, initialValue }) => {
   const isFormInvalid = () => {
     const result = schema.validate(form);
 
-    console.log(result);
+    // console.log(result);
 
     return !!result.error;
   };

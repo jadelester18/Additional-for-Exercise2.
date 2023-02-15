@@ -5,15 +5,19 @@ import ProductForm from '../Forms/ProductForm';
 const EditProductPage = ({ prods, onEditProduct }) => {
   const params = useParams();
 
-  const { id, ...product } = prods.find(
+  const { id, title, price, description, category, image } = prods.find(
     (product) => product.id === +params.id
   );
+
+  const handleSubmit = (prod) => {
+    onEditProduct(id, prod);
+  };
 
   return (
     <div>
       <ProductForm
-        onSubmit={(form) => onEditProduct(id, form)}
-        initialValue={product}
+        initialValue={{ title, price, description, category, image }}
+        onSubmit={(form) => handleSubmit(form)}
       />
     </div>
   );

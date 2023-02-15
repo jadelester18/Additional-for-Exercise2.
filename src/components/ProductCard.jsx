@@ -34,7 +34,7 @@ const ProductCard = ({
   RemoveToCart,
   DeleteProducts,
 }) => {
-  const [value, setValue] = React.useState(product.rating.rate);
+  // const [value, setValue] = React.useState(product.rating.rate);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -98,13 +98,13 @@ const ProductCard = ({
           <Typography gutterBottom variant="h6" component="div">
             {`PHP ${product.price}`}
           </Typography>
-          <Rating
+          {/* <Rating
             name="simple-controlled"
             value={value}
             onChange={(event, newValue) => {
               setValue(newValue);
             }}
-          />
+          /> */}
         </CardContent>
       </CardActionArea>
       {/* </Link> */}
@@ -114,7 +114,12 @@ const ProductCard = ({
       <CardActions sx={{ backgroundColor: "#eeeeee" }}>
         <Grid container spacing={1} direction="row" justifyContent="center">
           <Grid item xs={4} sx={{ textAlign: "right" }}>
-            <Button variant="contained" fullWidth onClick={handleOpen}>
+            <Button
+              variant="contained"
+              color="success"
+              fullWidth
+              onClick={handleOpen}
+            >
               <Typography variant="body2">View</Typography>
             </Button>
           </Grid>
